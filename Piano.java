@@ -5,8 +5,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, and Greenfoot)
  * 
  * @author (Jared Muise)
  * Teacher Mr.Hardman
- * Lab #4 Piano
- * Date Last Modified: April 20/2017)
+ * Lab #5 Piano
+ * Date Last Modified: May 5/2017)
  */
 public class Piano extends World
 {
@@ -14,19 +14,22 @@ public class Piano extends World
     private String[] whiteNotes = {"3c", "3d", "3e", "3f", "3g", "3a", "3b", "4c", "4d", "4e", "4f", "4g"};
     private String[] blackKeys = {"2", "3", "", "5", "6", "7", "", "9", "0", "", "="};
     private String[] blackNotes = {"3c#", "3d#", "", "3f#", "3g#", "3a#", "", "4c#", "4d#", "", "4f#"};
-    
-    
+
+    private Key[] whiteKeyObjects = new Key[whiteKeys.length];
+
+    private Key[] blackKeyObjects = new Key[blackKeys.length];
+
+    private Key[] allKeyObjects = new Key[ whiteKeys.length + blackKeys.length];
     /*
      * Make the piano.
      */
     public Piano() 
     {
         super(800, 340, 1);
-        
+
         makeKeys();
     }
-    
-    
+
     /**
      * makeKeys() runs a for loop and puts the whiteKeys in order and puts the whiteNote that match the keys and does
      * it for the blackKeys and blackNotes as well.
@@ -37,23 +40,158 @@ public class Piano extends World
     private void makeKeys()
     {
         Key currentKey;
-        
+
         for( int i = 0; i < whiteKeys.length; i++)
         {
             currentKey = new Key( whiteKeys[i], whiteNotes[i], "white-key", "white-key-down");
-            
             addObject( currentKey, (i * 67) + 30, 250 );
+
+            whiteKeyObjects[i] = currentKey;
         }
-        
+
         for( int i = 0; i < blackKeys.length; i++)
         {
             if( blackKeys[i] != "")
             {
                 currentKey = new Key( blackKeys[i], blackNotes[i], "black-key", "black-key-down");
-                
                 addObject( currentKey, (i * 67) + 65, 195 );
+
+                blackKeyObjects[i] = currentKey;
+            }
+            else
+            {
+                blackKeyObjects[i] = null;
+            }
+
+            makeAllKeysArray();
+        }
+    }
+    
+ 
+     /**
+     * makeAllKeysArray condenses whiteKeyObjects and blackKeyObjects together into
+     * a lager array called allKeyObjects.
+     * 
+     * @param There are no parameters
+     * @return There is nothing to return.
+     */
+    private void makeAllKeysArray()
+    {
+        for(int i = 0; i < allKeyObjects.length; i++)
+        {
+            if( i % 2 == 0 )
+            {
+                allKeyObjects[i] = whiteKeyObjects[i/2];
+            }
+
+            if( i % 2 != 0 )
+            {
+                allKeyObjects[i] = blackKeyObjects[i/2];
+            }
+        }
+        allKeyObjects[allKeyObjects.length - 2] = whiteKeyObjects[whiteKeyObjects.length - 2];
+        allKeyObjects[allKeyObjects.length - 1] = whiteKeyObjects[whiteKeyObjects.length - 1];
+    }
+
+    public void act()
+    {
+        int numAllDown = 0;
+        int numNulls = 0;
+
+        int[] keyDownLocations = new int [20];
+
+        for(int i = 0; i < allKeyObjects.length; i++)
+        {
+            if( allKeyObjects[i] == null )
+            {
+                numNulls ++;
+            }
+            else
+            {
+                if( ( allKeyObjects[i].checkDown() == true ) )
+                {
+                    keyDownLocations[numAllDown] = i - numNulls;
+                    numAllDown++;
+                }
             }
         }
         
+        if( numAllDown == 2 )
+        {
+            checkForSeconds( keyDownLocations );
+        }
+        else if( numAllDown == 3 )
+        {
+            checkForTriads( keyDownLocations );
+        }
+        else if( numAllDown == 4 )
+        {
+            checkForSevenths( keyDownLocations );
+        }
+        else
+        {
+            showText( "", getWidth()/2, 50 );
+        }
     }
-}
+    
+     /**
+     * checkForSeconds checks that if a second has been played
+     * 
+     * 
+     * @param int downKeys is an array that scores the locations of currently pressed keys
+     * @return There is nothing to return.
+     */
+    private void checkForSeconds(int[] downKeys)
+    {
+        if(downKeys[0] + 1 == downKeys[1] || downKeys[0] + 2 == downKeys[1] )
+        {
+           showText( "You have made a second", getWidth()/2, 50 ); 
+        }
+    }
+    
+     /**
+     * checkForTriads checks that if a triad has been played
+     * 
+     * 
+     * @param int downKeys is an array that scores the locations of currently pressed keys
+     * @return There is nothing to return.
+     */
+    private void checkForTriads(int[] downKeys)
+    {
+        if(downKeys[0] + 3 == downKeys[1] && downKeys[1] + 4 == downKeys[2] ||
+            downKeys[0] + 4 == downKeys[1] && downKeys[1] + 3 == downKeys[2] ||
+            downKeys[0] + 3 == downKeys[1] && downKeys[1] + 3 == downKeys[2] )
+        {
+           showText( "You have made a Triads", getWidth()/2, 50 ); 
+        }
+    }
+ 
+     /**
+     * checkForSevenths checks that if a sevenths has been played
+     * 
+     * 
+     * @param int downKeys is an array that scores the locations of currently pressed keys
+     * @return There is nothing to return.
+     */
+    private void checkForSevenths(int[] downKeys)
+    {
+        if(downKeys[0] + 3 == downKeys[1] && downKeys[1] + 4 == downKeys[2]&& downKeys[2] + 3 == downKeys[3] ||
+            downKeys[0] + 4 == downKeys[1] && downKeys[1] + 3 == downKeys[2] && downKeys[2] + 4 == downKeys[3] ||
+            downKeys[0] + 3 == downKeys[1] && downKeys[1] + 3 == downKeys[2] && downKeys[2] + 3 == downKeys[3] )
+        {
+           showText( "You have made a Sevenths", getWidth()/2, 50 ); 
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+}   
+    

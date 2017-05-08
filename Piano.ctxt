@@ -1,10 +1,24 @@
 #BlueJ class context
 comment0.target=Piano
-comment0.text=\r\n\ A\ piano\ that\ can\ be\ played\ with\ the\ computer\ keyboard.\r\n\ \r\n\ @author\ (Jared\ Muise)\r\n\ Teacher\ Mr.Hardman\r\n\ Lab\ \#4\ Piano\r\n\ Date\ Last\ Modified\:\ April\ 20/2017)\r\n
+comment0.text=\r\n\ A\ piano\ that\ can\ be\ played\ with\ the\ computer\ keyboard.\r\n\ \r\n\ @author\ (Jared\ Muise)\r\n\ Teacher\ Mr.Hardman\r\n\ Lab\ \#5\ Piano\r\n\ Date\ Last\ Modified\:\ May\ 5/2017)\r\n
 comment1.params=
 comment1.target=Piano()
 comment1.text=\r\n\ Make\ the\ piano.\r\n
 comment2.params=
 comment2.target=void\ makeKeys()
 comment2.text=\r\n\ makeKeys()\ runs\ a\ for\ loop\ and\ puts\ the\ whiteKeys\ in\ order\ and\ puts\ the\ whiteNote\ that\ match\ the\ keys\ and\ does\r\n\ it\ for\ the\ blackKeys\ and\ blackNotes\ as\ well.\r\n\ \r\n\ @param\ There\ are\ no\ parameters.\r\n\ @return\ There\ is\ nothing\ to\ return.\r\n
-numComments=3
+comment3.params=
+comment3.target=void\ makeAllKeysArray()
+comment3.text=\r\n\ makeAllKeysArray\ condenses\ whiteKeyObjects\ and\ blackKeyObjects\ together\ into\r\n\ a\ lager\ array\ called\ allKeyObjects.\r\n\ \r\n\ @param\ There\ are\ no\ parameters\r\n\ @return\ There\ is\ nothing\ to\ return.\r\n
+comment4.params=
+comment4.target=void\ act()
+comment5.params=downKeys
+comment5.target=void\ checkForSeconds(int[])
+comment5.text=\r\n\ checkForSeconds\ checks\ that\ if\ a\ second\ has\ been\ played\r\n\ \r\n\ \r\n\ @param\ int\ downKeys\ is\ an\ array\ that\ scores\ the\ locations\ of\ currently\ pressed\ keys\r\n\ @return\ There\ is\ nothing\ to\ return.\r\n
+comment6.params=downKeys
+comment6.target=void\ checkForTriads(int[])
+comment6.text=\r\n\ checkForTriads\ checks\ that\ if\ a\ triad\ has\ been\ played\r\n\ \r\n\ \r\n\ @param\ int\ downKeys\ is\ an\ array\ that\ scores\ the\ locations\ of\ currently\ pressed\ keys\r\n\ @return\ There\ is\ nothing\ to\ return.\r\n
+comment7.params=downKeys
+comment7.target=void\ checkForSevenths(int[])
+comment7.text=\r\n\ checkForSevenths\ checks\ that\ if\ a\ sevenths\ has\ been\ played\r\n\ \r\n\ \r\n\ @param\ int\ downKeys\ is\ an\ array\ that\ scores\ the\ locations\ of\ currently\ pressed\ keys\r\n\ @return\ There\ is\ nothing\ to\ return.\r\n
+numComments=8

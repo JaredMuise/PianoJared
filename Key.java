@@ -21,13 +21,7 @@ public class Key extends Actor
        setImage( notPressed + ".png" );
     }
     
-    /**
-     * Create a new key.
-     */
-    public Key()
-    {
-    }
-
+    
     /**
      * Do the action for this key.
      */
@@ -63,5 +57,20 @@ public class Key extends Actor
     {
         Greenfoot.playSound( sound + ".wav" );
     }
+
+     /**
+     * boolean checkDown returns the isDown value when called.
+     * 
+     * 
+     * @param There are no paramters
+     * @return Returns  the isDownBoolean, whicth is true when this key object is presssed.
+     */
+    public boolean checkDown()
+	{
+		return isDown; 
+	}
+
+
+  
 }
 
